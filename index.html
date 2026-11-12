@@ -116,6 +116,24 @@
   .sticker { position: absolute; top: 14px; right: 14px; background: var(--sun); color: var(--ink); border: 2.5px solid var(--ink); border-radius: 50%; width: 82px; height: 82px; display: grid; place-items: center; text-align: center; font: 800 18px/1 "Bricolage Grotesque"; transform: rotate(12deg); box-shadow: 3px 3px 0 var(--ink); }
   .sticker small { display: block; font: 10px "Space Mono", monospace; }
 
+  /* ---------- photo cards inside the chat ---------- */
+  .mini-wrap { align-self: stretch; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; animation: pop .35s ease-out; }
+  .mini { position: relative; height: 230px; padding: 0; overflow: hidden; border: 2.5px solid var(--ink); border-radius: 18px; box-shadow: 4px 4px 0 var(--ink); cursor: pointer; color: #fff; text-align: left; font: inherit; background: var(--ink); }
+  .mini:nth-child(1) { transform: rotate(-1.5deg); } .mini:nth-child(2) { transform: rotate(1.5deg); }
+  .mini:hover { transform: rotate(0) translateY(-3px); }
+  .mini img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
+  .mini:hover img { transform: scale(1.07); }
+  .mini.yoga img { object-position: 55% 50%; }
+  .mini.night img { object-position: 15% 50%; }
+  .mini .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 12px 10px; background: linear-gradient(transparent, rgba(11,27,58,.92)); }
+  .mini .cap b { font-size: 17px; font-weight: 800; display: block; line-height: 1.1; }
+  .mini .cap span { font: 11px "Space Mono", monospace; }
+  .mini .sticker { width: 62px; height: 62px; font-size: 14px; top: 10px; right: 10px; }
+  .mini .sticker small { font-size: 8px; }
+  .mini.night .sticker { background: #3dff9e; }
+  .mini-label { align-self: flex-start; font: 11px "Space Mono", monospace; color: var(--muted); margin: 0 0 -4px 4px; }
+  @media (max-width: 480px) { .mini { height: 180px; } }
+
   footer { text-align: center; font: 12px "Space Mono", monospace; color: var(--muted); padding: 10px 16px 40px; }
 
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
@@ -298,9 +316,9 @@ function render(sessions, w) {
     </li>`;
   }).join("");
 
-  for (const id of ["DS01", "DS05"]) {
+  for (const id of ["DS01", "DS05", "DS07", "DS10"]) {
     const s = sessions.find(x => x.id === id);
-    if (!s) continue;
+    if (!s || !$("stk-" + id)) continue;
     $("stk-" + id).innerHTML = `€${esc(s.price_eur)}<small>${id === "DS05" ? "per person" : "live price"}</small>`;
     const st = s.full ? "FULL" : s.level === "stop" ? "too windy" : s.level === "warn" ? "on (gusty)" : "on";
     $("cap-" + id).textContent = `${s.start_time} · ${s.duration_min} min · ${s.slots_left} places left · ${st}`;
@@ -374,6 +392,18 @@ document.addEventListener("click", e => {
 });
 
 addMsg("Ahoy! I'm Dockie 🛶 Ask me what a session costs, whether there are places left, or if it's going ahead in today's wind.", "bot");
+addMsg("", "mini-label", "✨ later today · tap one to ask").classList.remove("msg");
+addMsg("", "mini-wrap", `
+  <button class="mini yoga" type="button" data-q="Tell me about Paddleboard Yoga: price, places left and will it go ahead?">
+    <img src="img/paddleboard-yoga.jpg" alt="A woman doing a yoga pose on a paddleboard on calm water">
+    <div class="sticker" id="stk-DS07">€…<small>live</small></div>
+    <div class="cap"><b>🧘 Paddleboard Yoga</b><span id="cap-DS07">15:00 · loading…</span></div>
+  </button>
+  <button class="mini night" type="button" data-q="Tell me about the Night Lights Paddle: price, places left and will it go ahead?">
+    <img src="img/night-lights.jpg" alt="Paddleboarders at dusk on boards lit up in pink, green and orange">
+    <div class="sticker" id="stk-DS10">€…<small>live</small></div>
+    <div class="cap"><b>✨ Night Lights Paddle</b><span id="cap-DS10">18:30 · loading…</span></div>
+  </button>`).classList.remove("msg");
 loadLive().catch(e => { $("sessions").innerHTML = `<li class="meta">${esc(e.message)}</li>`; });
 setInterval(() => loadLive().catch(() => {}), 5 * 60 * 1000);
 </script>
