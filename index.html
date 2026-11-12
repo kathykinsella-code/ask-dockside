@@ -109,7 +109,7 @@
   .photo:nth-child(1) { transform: rotate(-1.2deg); } .photo:nth-child(2) { transform: rotate(1.2deg); }
   .photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
   .photo:hover img { transform: scale(1.06); }
-  .photo.dragon img { object-position: 50% 30%; }
+  .photo.dragon img { object-position: 55% 75%; }
   .photo .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 18px 16px; background: linear-gradient(transparent, rgba(11,27,58,.9)); }
   .photo .cap b { font-size: 26px; font-weight: 800; display: block; line-height: 1.1; }
   .photo .cap span { font: 13px "Space Mono", monospace; }
@@ -124,7 +124,7 @@
   .mini img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
   .mini:hover img { transform: scale(1.07); }
   .mini.yoga img { object-position: 55% 50%; }
-  .mini.night img { object-position: 15% 50%; }
+  .mini.night img { object-position: 55% 60%; }
   .mini .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 12px 10px; background: linear-gradient(transparent, rgba(11,27,58,.92)); }
   .mini .cap b { font-size: 17px; font-weight: 800; display: block; line-height: 1.1; }
   .mini .cap span { font: 11px "Space Mono", monospace; }
@@ -193,7 +193,7 @@
       <div class="cap"><b>Sunrise Paddleboard</b><span id="cap-DS01">07:30 · loading…</span></div>
     </button>
     <button class="card photo dragon" type="button" data-q="Tell me about the Dragon Boat Team Session: price, places left and will it go ahead?">
-      <img src="img/dragon-boat.jpg" alt="A dragon boat crew paddling hard in red jackets">
+      <img src="img/dragon-boat.jpg" alt="A dragon boat crew racing past colourful flags">
       <div class="sticker" id="stk-DS05">€…<small>live</small></div>
       <div class="cap"><b>Dragon Boat Team Session</b><span id="cap-DS05">13:00 · loading…</span></div>
     </button>
@@ -400,7 +400,7 @@ addMsg("", "mini-wrap", `
     <div class="cap"><b>🧘 Paddleboard Yoga</b><span id="cap-DS07">15:00 · loading…</span></div>
   </button>
   <button class="mini night" type="button" data-q="Tell me about the Night Lights Paddle: price, places left and will it go ahead?">
-    <img src="img/night-lights.jpg" alt="Paddleboarders at dusk on boards lit up in pink, green and orange">
+    <img src="img/night-lights.jpg" alt="Friends on glowing paddleboards under a sunset sky">
     <div class="sticker" id="stk-DS10">€…<small>live</small></div>
     <div class="cap"><b>✨ Night Lights Paddle</b><span id="cap-DS10">18:30 · loading…</span></div>
   </button>`).classList.remove("msg");
